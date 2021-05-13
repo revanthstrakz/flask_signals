@@ -18,10 +18,10 @@ def root():
     elif request.method == "POST":
         try:
             # hCaptcha
-            hcaptcha_response = request.form["h-captcha-response"]
-            captchaReq = requests.post("https://hcaptcha.com/siteverify", data={"secret": hcaptcha_secret, "response": hcaptcha_response})
-            if captchaReq.json()["success"] == False:
-                return render_template("error.html", version=tradingview_ta.__version__, error="Error: Invalid captcha", captcha_sitekey=hcaptcha_sitekey)
+            # hcaptcha_response = request.form["h-captcha-response"]
+            # captchaReq = requests.post("https://hcaptcha.com/siteverify", data={"secret": hcaptcha_secret, "response": hcaptcha_response})
+            # if captchaReq.json()["success"] == False:
+            #     return render_template("error.html", version=tradingview_ta.__version__, error="Error: Invalid captcha", captcha_sitekey=hcaptcha_sitekey)
 
             # TradingView Technical Analysis
             handler = TA_Handler()
@@ -44,3 +44,5 @@ def root():
                     captcha_sitekey=hcaptcha_sitekey)
         except Exception as e:
             return render_template("error.html", version=tradingview_ta.__version__, error=e, captcha_sitekey=hcaptcha_sitekey)
+
+app.run(host='0.0.0.0', port=8080)
